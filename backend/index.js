@@ -43,3 +43,15 @@ app.get('/tasks', async (req, res) => {
 
 // Write an endpoint to create a new task.
 
+app.post('/tasks', async (req, res) => {
+    console.log('Creating task...');
+    try {
+        const task = new Task(req.body);
+        const result = await task.save();
+        res.status(201).json(result);
+    } catch (err) {
+        console.error('Error creating task:', err);
+        res.status(400).json({ message: 'Invalid request' });
+    }
+}
+);
